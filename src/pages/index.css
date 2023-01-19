@@ -1,0 +1,15 @@
+main {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.red {
+  color: red;
+}

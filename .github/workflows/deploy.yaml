@@ -4,15 +4,7 @@ on:
   - push
 
 jobs:
-  deploy:
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+  build:
     uses: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,5 +19,19 @@ jobs:
       - run: pnpm run build
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: "dist"
+          path: dist
+
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    uses: ubuntu-latest
+    steps:
       - uses: actions/deploy-pages@v1

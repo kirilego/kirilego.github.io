@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    uses: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -32,6 +32,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    uses: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/deploy-pages@v1

@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  - push
+
+jobs:
+  deploy:
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    uses: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: "dist"
+      - uses: actions/deploy-pages@v1
